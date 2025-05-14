@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -51,7 +52,10 @@ public class MapController {
     private StackPane rootStackPane;
     private int videoViewIndex = -1;
     private int videoControlsIndex = -1;
-    private String currentVideoPath = null; // Store the path to the current video
+    private String currentVideoPath = null;
+    private ImageView currentFullscreenImageView;
+    private Button exitFullscreenImageButton;
+    private boolean isImageFullscreen = false;
 
     private final Map<String, List<Question>> locationQuizzes = Map.of(
             "maseru", List.of(
@@ -154,7 +158,7 @@ public class MapController {
             isVideoFullscreen = false;
             videoViewIndex = -1;
             videoControlsIndex = -1;
-            currentVideoPath = "/media/" + location + "_video.mp4"; // Store the video path
+            currentVideoPath = "/media/" + location + "_video.mp4";
 
             String imageName = "/map/images/" + location + ".jpg";
             String audioPath = "/media/" + location + "_audio.mp3";
@@ -163,6 +167,8 @@ public class MapController {
             ImageView imageView = new ImageView(image);
             imageView.setFitWidth(280);
             imageView.setPreserveRatio(true);
+            imageView.setStyle("-fx-cursor: hand;"); // Make it look clickable
+            imageView.setOnMouseClicked(event -> showFullscreenImage(image));
 
             Label nameLabel = new Label(location.toUpperCase());
             nameLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
@@ -182,17 +188,49 @@ public class MapController {
             quizButton.setMaxWidth(Double.MAX_VALUE);
             quizButton.setOnAction(event -> startQuiz(location));
 
-            // Store the potential indices where video elements would have been
-            // (important for maintaining order if video is played later)
+            // Store potential indices (though not used for image in this implementation)
             int imageIndex = infoDisplay.getChildren().indexOf(imageView);
             int descriptionIndex = infoDisplay.getChildren().indexOf(descriptionLabel);
-            videoViewIndex = Math.max(imageIndex, descriptionIndex) + 1; // Place video elements after image/description
+            videoViewIndex = Math.max(imageIndex, descriptionIndex) + 1;
             videoControlsIndex = videoViewIndex + 1;
 
             infoDisplay.getChildren().addAll(nameLabel, imageView, descriptionLabel, playVideoButton, AudioGuideButton, quizButton, audioControlsContainer);
             infoDisplay.setPadding(new Insets(10));
             infoDisplay.setSpacing(10);
         });
+    }
+
+    private void showFullscreenImage(Image image) {
+        if (image != null && rootStackPane != null) {
+            currentFullscreenImageView = new ImageView(image);
+            currentFullscreenImageView.setPreserveRatio(true);
+            currentFullscreenImageView.setFitWidth(rootStackPane.getWidth() * 0.9); // Adjust as needed
+            currentFullscreenImageView.setFitHeight(rootStackPane.getHeight() * 0.9); // Adjust as needed
+
+            exitFullscreenImageButton = new Button("Exit Fullscreen");
+            exitFullscreenImageButton.setOnAction(event -> exitFullscreenImage());
+            exitFullscreenImageButton.setStyle("-fx-font-size: 16px; -fx-padding: 10px;");
+
+            VBox fullscreenLayout = new VBox(10, currentFullscreenImageView, exitFullscreenImageButton);
+            fullscreenLayout.setAlignment(Pos.CENTER);
+            StackPane.setAlignment(fullscreenLayout, Pos.CENTER);
+            fullscreenLayout.setStyle("-fx-background-color: rgba(0, 0, 0, 0.8);"); // Darker background
+            fullscreenLayout.setId("fullscreenImageOverlay");
+
+            rootStackPane.getChildren().removeIf(node -> node.getId() != null && node.getId().equals("fullscreenImageOverlay"));
+            rootStackPane.getChildren().add(fullscreenLayout);
+
+            isImageFullscreen = true;
+        }
+    }
+
+    private void exitFullscreenImage() {
+        if (rootStackPane != null && isImageFullscreen) {
+            rootStackPane.getChildren().removeIf(node -> node.getId() != null && node.getId().equals("fullscreenImageOverlay"));
+            currentFullscreenImageView = null;
+            exitFullscreenImageButton = null;
+            isImageFullscreen = false;
+        }
     }
 
     private void loadAndPlayVideoFullscreen() {
@@ -214,14 +252,14 @@ public class MapController {
             videoButtonControls.setAlignment(Pos.CENTER);
             Button playPauseVideoButton = new Button("Play");
             Button stopVideoButton = new Button("Stop");
-            fullscreenVideoButton = new Button("Exit Fullscreen"); // Changed to Exit
+            fullscreenVideoButton = new Button("Exit Fullscreen");
             videoButtonControls.getChildren().addAll(playPauseVideoButton, stopVideoButton, fullscreenVideoButton);
 
             currentVideoPlayer.setOnReady(() -> {
                 Duration totalDuration = currentVideoPlayer.getMedia().getDuration();
                 durationVideoLabel.setText(formatDuration(totalDuration));
                 videoTimeSlider.setMax(totalDuration.toSeconds());
-                currentVideoPlayer.play(); // Start playing automatically
+                currentVideoPlayer.play();
                 playPauseVideoButton.setText("Pause");
             });
 
@@ -254,6 +292,7 @@ public class MapController {
                 currentVideoPlayer.seek(Duration.ZERO);
                 playPauseVideoButton.setText("Play");
                 videoTimeSlider.setValue(0);
+                videoTimeSlider.setValue(0);
                 currentVideoTimeLabel.setText("0:00");
             });
 
@@ -265,31 +304,25 @@ public class MapController {
             fullscreenOverlay.setAlignment(Pos.CENTER);
             StackPane.setAlignment(fullscreenOverlay, Pos.CENTER);
             fullscreenOverlay.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5);");
-            fullscreenOverlay.setId("fullscreenOverlay");
+            fullscreenOverlay.setId("fullscreenVideoOverlay");
 
-            // Remove any existing overlay
-            rootStackPane.getChildren().removeIf(node -> node.getId() != null && node.getId().equals("fullscreenOverlay"));
-
+            rootStackPane.getChildren().removeIf(node -> node.getId() != null && node.getId().equals("fullscreenVideoOverlay"));
             rootStackPane.getChildren().add(fullscreenOverlay);
 
-            fullscreenVideoButton.setOnAction(event -> exitFullscreenVideo()); // Use a dedicated exit method
+            fullscreenVideoButton.setOnAction(event -> exitFullscreenVideo());
             isVideoFullscreen = true;
         }
     }
 
     private void exitFullscreenVideo() {
         if (currentMediaView != null && currentVideoControls != null && rootStackPane != null && isVideoFullscreen) {
-            // Remove the overlay
-            rootStackPane.getChildren().removeIf(node -> node.getId() != null && node.getId().equals("fullscreenOverlay"));
-
-            // Dispose of the media player to release resources
+            rootStackPane.getChildren().removeIf(node -> node.getId() != null && node.getId().equals("fullscreenVideoOverlay"));
             currentVideoPlayer.stop();
             currentVideoPlayer.dispose();
             currentVideoPlayer = null;
             currentMediaView = null;
             currentVideoControls = null;
-            fullscreenVideoButton = null; // Important to avoid issues if showLocationInfo is called again
-
+            fullscreenVideoButton = null;
             isVideoFullscreen = false;
         }
     }
@@ -396,7 +429,8 @@ public class MapController {
                 optionsBox.getChildren().add(optionButton);
             }
 
-            quizContainer.getChildren().addAll(questionLabel, optionsBox, feedbackLabel, nextButton);}
+            quizContainer.getChildren().addAll(questionLabel, optionsBox, feedbackLabel, nextButton);
+        }
     }
 
     private void displayResults() {

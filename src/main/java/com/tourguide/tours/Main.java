@@ -25,7 +25,7 @@ public class Main extends Application {
     private ScrollPane sideNavScrollPane; // ScrollPane for the side nav
     private StackPane rootStackPane; // Use StackPane as the root
     private MapController mapController;
-    private final List<String> locations = Arrays.asList("maseru", "thaba"); // Add more locations here
+    private final List<String> locations = Arrays.asList("maseru", "thaba","tsehlanyane"); // Add more locations here
 
     @Override
     public void start(Stage primaryStage) {
