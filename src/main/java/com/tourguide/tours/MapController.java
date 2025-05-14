@@ -73,6 +73,11 @@ public class MapController {
                     new Question("What is a prominent feature of Ts'ehlanyane's landscape?", new String[]{"Vast grasslands", "Indigenous forest", "High-altitude bamboo"}, "High-altitude bamboo"),
                     new Question("Which river system has its source in the Ts'ehlanyane area?", new String[]{"Senqu River", "Mohokare River", "Malibamat'so River"}, "Malibamat'so River"),
                     new Question("What type of accommodation is primarily found within Ts'ehlanyane National Park?", new String[]{"Luxury hotels", "Self-catering chalets", "Backpacker hostels"}, "Self-catering chalets")
+            ),
+            "liphofung", List.of(
+                    new Question("What is Liphofung primarily known for?", new String[]{"Diamond mining", "Ancient rock paintings", "Large bat colonies"}, "Ancient rock paintings"),
+                    new Question("Which King of Lesotho is historically linked to Liphofung Cave?", new String[]{"Letsie II", "Moshoeshoe I", "David Mohohlo"}, "Moshoeshoe I"),
+                    new Question("What type of rock shelter is Liphofung Cave?", new String[]{"Limestone cave", "Sandstone overhang", "Volcanic tunnel"}, "Sandstone overhang")
             )
     );
 
