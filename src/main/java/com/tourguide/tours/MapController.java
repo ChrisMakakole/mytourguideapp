@@ -67,6 +67,12 @@ public class MapController {
                     new Question("Which mountain is associated with the founding of Lesotho?", new String[]{"Thaba-Bosiu", "Qiloane", "Drakensberg"}, "Thaba-Bosiu"),
                     new Question("Who was the founder of Lesotho?", new String[]{"Letsie I", "Moshoeshoe I", "Seeiso"}, "Moshoeshoe I"),
                     new Question("What is the significance of Thaba-Bosiu?", new String[]{"Royal palace", "Historical fortress", "Mining center"}, "Historical fortress")
+            ),
+            "tsehlanyane", List.of(
+                    new Question("In which mountain range is Ts'ehlanyane National Park located?", new String[]{"Drakensberg", "Maluti Mountains", "Lebombo Mountains"}, "Maluti Mountains"),
+                    new Question("What is a prominent feature of Ts'ehlanyane's landscape?", new String[]{"Vast grasslands", "Indigenous forest", "High-altitude bamboo"}, "High-altitude bamboo"),
+                    new Question("Which river system has its source in the Ts'ehlanyane area?", new String[]{"Senqu River", "Mohokare River", "Malibamat'so River"}, "Malibamat'so River"),
+                    new Question("What type of accommodation is primarily found within Ts'ehlanyane National Park?", new String[]{"Luxury hotels", "Self-catering chalets", "Backpacker hostels"}, "Self-catering chalets")
             )
     );
 
@@ -165,7 +171,7 @@ public class MapController {
 
             Image image = new Image(getClass().getResourceAsStream(imageName));
             ImageView imageView = new ImageView(image);
-            imageView.setFitWidth(280);
+            imageView.setFitWidth(330);
             imageView.setPreserveRatio(true);
             imageView.setStyle("-fx-cursor: hand;"); // Make it look clickable
             imageView.setOnMouseClicked(event -> showFullscreenImage(image));
