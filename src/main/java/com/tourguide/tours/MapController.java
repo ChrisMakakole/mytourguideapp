@@ -63,7 +63,7 @@ public class MapController {
                     new Question("Which river flows through Maseru?", new String[]{"Orange River", "Caledon River", "Malibamat'so River"}, "Caledon River"),
                     new Question("What is the main airport near Maseru?", new String[]{"Moshoeshoe I International Airport", "Mejametalana Airport", "Leribe Airport"}, "Moshoeshoe I International Airport")
             ),
-            "thaba", List.of(
+            "thaba_bosiu", List.of(
                     new Question("Which mountain is associated with the founding of Lesotho?", new String[]{"Thaba-Bosiu", "Qiloane", "Drakensberg"}, "Thaba-Bosiu"),
                     new Question("Who was the founder of Lesotho?", new String[]{"Letsie I", "Moshoeshoe I", "Seeiso"}, "Moshoeshoe I"),
                     new Question("What is the significance of Thaba-Bosiu?", new String[]{"Royal palace", "Historical fortress", "Mining center"}, "Historical fortress")
@@ -88,6 +88,11 @@ public class MapController {
                     new Question("Near which town is Maletsunyane Falls primarily located?", new String[]{"Maseru", "Semonkong", "Qacha's Nek"}, "Semonkong"),
                     new Question("Maletsunyane Falls is famous for being one of the highest of what type of waterfall in Africa?", new String[]{"Tiered waterfalls", "Block waterfalls", "Single-drop waterfalls"}, "Single-drop waterfalls"),
                     new Question("Which river plunges over the cliff to form Maletsunyane Falls?", new String[]{"Senqunyane River", "Orange River", "Makhaleng River"}, "Senqunyane River")
+            ),
+            "pioneermall", List.of(
+                    new Question("In which city is Pioneer Mall located?", new String[]{"Maseru", "Mafeteng", "Hlotse"}, "Maseru"),
+                    new Question("Compared to Maseru Mall, is Pioneer Mall generally considered larger or smaller?", new String[]{"Larger", "Smaller", "About the same size"}, "Smaller"),
+                    new Question("What type of establishment would you typically find in Pioneer Mall?", new String[]{"Heavy industrial factories", "Residential apartments", "Retail stores and restaurants"}, "Retail stores and restaurants")
             )
     );
 
