@@ -25,7 +25,7 @@ public class Main extends Application {
     private ScrollPane sideNavScrollPane; // ScrollPane for the side nav
     private StackPane rootStackPane; // Use StackPane as the root
     private MapController mapController;
-    private final List<String> locations = Arrays.asList("maseru", "thaba_bosiu","tsehlanyane","liphofung","pioneermall","sanipass","maletsunyane"); // Add more locations here
+    private final List<String> locations = Arrays.asList("maseru", "thaba_bosiu","tsehlanyane","liphofung","pioneermall","sanipass","maletsunyane");
 
     @Override
     public void start(Stage primaryStage) {
@@ -37,7 +37,16 @@ public class Main extends Application {
             topNav.setPadding(new Insets(10));
             topNav.setAlignment(Pos.CENTER_LEFT);
             Button homeButton = new Button("Home");
-            // Add more top navigation buttons here
+
+            homeButton.setOnAction(event -> {
+                // Clear the current content of the sideNavContent
+                sideNavContent.getChildren().clear();
+
+                // Repopulate the sideNavContent with the location thumbnails and names
+                thumbnailContent();
+
+                // Optionally, you might want to reset the center view here if needed.
+            });
             topNav.getChildren().addAll(homeButton);
             rootBorderPane.setTop(topNav);
 
@@ -46,38 +55,7 @@ public class Main extends Application {
             sideNavContent.setPadding(new Insets(10));
             sideNavContent.setPrefWidth(350);
 
-            // Populate sidebar with location previews
-            for (String location : locations) {
-                String imageName = "/map/images/" + location + "_thumb.jpg"; // Use thumbnails
-                Image image = new Image(getClass().getResourceAsStream(imageName));
-                ImageView imageView = new ImageView(image);
-                imageView.setFitWidth(300);
-                imageView.setPreserveRatio(true);
-                imageView.setStyle("-fx-cursor: hand;"); // Indicate it's clickable
-
-                Label nameLabel = new Label(location.toUpperCase());
-                nameLabel.setStyle("-fx-font-weight: bold;");
-                nameLabel.setAlignment(Pos.CENTER);
-
-                VBox locationPreview = new VBox(5, imageView, nameLabel);
-                locationPreview.setAlignment(Pos.CENTER);
-                locationPreview.setStyle("-fx-padding: 10px; -fx-cursor: hand;");
-
-
-                // Load location info on click
-                final String currentLocation = location;
-                locationPreview.setOnMouseClicked((MouseEvent event) -> {
-                    mapController.showLocationInfo(currentLocation);
-                });
-                imageView.setOnMouseClicked((MouseEvent event) -> {
-                    mapController.showLocationInfo(currentLocation);
-                });
-                nameLabel.setOnMouseClicked((MouseEvent event) -> {
-                    mapController.showLocationInfo(currentLocation);
-                });
-
-                sideNavContent.getChildren().add(locationPreview);
-            }
+            thumbnailContent();
 
             sideNavScrollPane = new ScrollPane(sideNavContent); // Wrap the content in a ScrollPane
             sideNavScrollPane.setFitToWidth(true); // Make the scroll pane width match the content width
@@ -106,7 +84,7 @@ public class Main extends Application {
             primaryStage.setScene(scene);
             primaryStage.show();
 
-            // Store the rootStackPane in the MapController for overlaying the video
+            // Store the rootStackPane in the MapController for overlaying the video/image
             mapController.setRootStackPane(rootStackPane);
 
             // Optionally load the first location by default
@@ -116,6 +94,39 @@ public class Main extends Application {
 
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+    public void thumbnailContent()
+    {
+        // Populate sidebar with initial location previews
+        for (String location : locations) {
+            String imageName = "/map/images/" + location + "_thumb.jpg";
+            Image image = new Image(getClass().getResourceAsStream(imageName));
+            ImageView imageView = new ImageView(image);
+            imageView.setFitWidth(250);
+            imageView.setPreserveRatio(true);
+            imageView.setStyle("-fx-cursor: hand;");
+
+            Label nameLabel = new Label(location.toUpperCase());
+            nameLabel.setStyle("-fx-font-weight: bold;");
+            nameLabel.setAlignment(Pos.CENTER);
+
+            VBox locationPreview = new VBox(5, imageView, nameLabel);
+            locationPreview.setAlignment(Pos.CENTER);
+            locationPreview.setStyle("-fx-padding: 10px; -fx-cursor: hand;");
+
+            final String currentLocation = location;
+            locationPreview.setOnMouseClicked((MouseEvent event) -> {
+                mapController.showLocationInfo(currentLocation);
+            });
+            imageView.setOnMouseClicked((MouseEvent event) -> {
+                mapController.showLocationInfo(currentLocation);
+            });
+            nameLabel.setOnMouseClicked((MouseEvent event) -> {
+                mapController.showLocationInfo(currentLocation);
+            });
+
+            sideNavContent.getChildren().add(locationPreview);
         }
     }
 
