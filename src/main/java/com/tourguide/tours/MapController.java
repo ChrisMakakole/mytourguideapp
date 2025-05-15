@@ -78,6 +78,16 @@ public class MapController {
                     new Question("What is Liphofung primarily known for?", new String[]{"Diamond mining", "Ancient rock paintings", "Large bat colonies"}, "Ancient rock paintings"),
                     new Question("Which King of Lesotho is historically linked to Liphofung Cave?", new String[]{"Letsie II", "Moshoeshoe I", "David Mohohlo"}, "Moshoeshoe I"),
                     new Question("What type of rock shelter is Liphofung Cave?", new String[]{"Limestone cave", "Sandstone overhang", "Volcanic tunnel"}, "Sandstone overhang")
+            ),
+            "sanipass", List.of(
+                    new Question("Which two countries does Sani Pass connect?", new String[]{"Lesotho and South Africa", "Lesotho and Eswatini", "South Africa and Namibia"}, "Lesotho and South Africa"),
+                    new Question("What is the typical vehicle requirement for driving up Sani Pass?", new String[]{"Any sedan car", "High-clearance 4x4 vehicle", "Motorcycle only"}, "High-clearance 4x4 vehicle"),
+                    new Question("What is the name of the famous pub located at the top of Sani Pass on the South African side?", new String[]{"The Highest Pub in Africa", "Sani Top Tavern", "Mountain View Inn"}, "The Highest Pub in Africa")
+            ),
+            "maletsunyane", List.of(
+                    new Question("Near which town is Maletsunyane Falls primarily located?", new String[]{"Maseru", "Semonkong", "Qacha's Nek"}, "Semonkong"),
+                    new Question("Maletsunyane Falls is famous for being one of the highest of what type of waterfall in Africa?", new String[]{"Tiered waterfalls", "Block waterfalls", "Single-drop waterfalls"}, "Single-drop waterfalls"),
+                    new Question("Which river plunges over the cliff to form Maletsunyane Falls?", new String[]{"Senqunyane River", "Orange River", "Makhaleng River"}, "Senqunyane River")
             )
     );
 
