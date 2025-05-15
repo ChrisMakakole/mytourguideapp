@@ -50,6 +50,7 @@
     const popupContent = `
       <div class="location-popup">
         <img src="${'./images/' + loc.name + '.jpg'}" alt="${loc.name}">
+        <h3>${loc.name}</h3>
       </div>
     `;
     const marker = L.marker(loc.coords).addTo(map)
