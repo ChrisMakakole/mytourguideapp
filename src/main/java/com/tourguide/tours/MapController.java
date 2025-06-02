@@ -197,7 +197,7 @@ public class MapController {
 
             Image image = new Image(getClass().getResourceAsStream(imageName));
             ImageView imageView = new ImageView(image);
-            imageView.setFitWidth(330);
+            imageView.setFitWidth(320);
             imageView.setPreserveRatio(true);
             imageView.setStyle("-fx-cursor: hand;"); // Make it look clickable
             imageView.setOnMouseClicked(event -> showFullscreenImage(image));
@@ -486,6 +486,7 @@ public class MapController {
             Question currentQuestion = currentQuestions.get(currentQuestionIndex);
             Label questionLabel = new Label(currentQuestion.getQuestion());
             questionLabel.setStyle("-fx-font-weight: bold; -fx-padding: 0 0 5 0;");
+            questionLabel.setWrapText(true);
 
             for (String option : currentQuestion.getOptions()) {
                 Button optionButton = new Button(option);
@@ -516,8 +517,9 @@ public class MapController {
         int score = 0;
         for (Question q : currentQuestions) {
             String userAnswer = userAnswers.get(q.getQuestion());
-            Label resultLabel = new Label(q.getQuestion() + " - Your answer: " + userAnswer +
+            Label resultLabel = new Label(q.getQuestion() + "\n - Your answer: " + userAnswer +
                     (userAnswer != null && userAnswer.equals(q.getAnswer()) ? " (Correct)" : " (Incorrect, Correct answer: " + q.getAnswer() + ")"));
+            resultLabel.setWrapText(true);
             quizContainer.getChildren().add(resultLabel);
             if (userAnswer != null && userAnswer.equals(q.getAnswer())) {
                 score++;
