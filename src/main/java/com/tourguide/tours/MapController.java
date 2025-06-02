@@ -15,7 +15,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
-import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 import java.util.Arrays;
@@ -34,78 +33,32 @@ public class MapController {
     private Button playPauseAudioButton = new Button("Play");
     private Button stopAudioButton = new Button("Stop");
     private VBox audioControlsContainer = new VBox(5);
-    private String currentQuizLocation = null;
-    private int currentQuestionIndex = -1;
-    private Map<String, String> userAnswers = new HashMap<>();
-    private List<Question> currentQuestions;
-    private Label feedbackLabel = new Label();
-    private VBox optionsBox = new VBox(5);
-    private Button nextButton = new Button("Next Question");
-    private VBox quizContainer = new VBox(10);
 
     private MediaPlayer currentVideoPlayer;
     private MediaView currentMediaView;
     private VBox currentVideoControls;
     private Button fullscreenVideoButton;
     private boolean isVideoFullscreen = false;
-    private double originalVideoWidth;
-    private double originalVideoHeight;
+    private double originalVideoWidth; // Not used currently, but kept for potential future use
+    private double originalVideoHeight; // Not used currently, but kept for potential future use
     private StackPane rootStackPane;
-    private int videoViewIndex = -1;
-    private int videoControlsIndex = -1;
+    private int videoViewIndex = -1; // Not directly used for adding/removing, but for conceptual ordering
+    private int videoControlsIndex = -1; // Not directly used for adding/removing, but for conceptual ordering
     private String currentVideoPath = null;
     private ImageView currentFullscreenImageView;
     private Button exitFullscreenImageButton;
     private boolean isImageFullscreen = false;
 
-    private final Map<String, List<Question>> locationQuizzes = Map.of(
-            "maseru", List.of(
-                    new Question("What is the capital of Lesotho?", new String[]{"Maseru", "Thaba-Tseka", "Mafeteng"}, "Maseru"),
-                    new Question("Which river flows through Maseru?", new String[]{"Orange River", "Caledon River", "Malibamat'so River"}, "Caledon River"),
-                    new Question("What is the main airport near Maseru?", new String[]{"Moshoeshoe I International Airport", "Mejametalana Airport", "Leribe Airport"}, "Moshoeshoe I International Airport")
-            ),
-            "quthing", List.of(
-                    new Question("Quthing District is most famous for its abundance of what prehistoric discovery?", new String[]{"Ancient pottery", "Dinosaur footprints", "Early human tools"}, "Dinosaur footprints"),
-                    new Question("What is the capital town of the Quthing District, also known as Moyeni?", new String[]{"Mokhotlong", "Quthing", "Thaba-Tseka"}, "Quthing"),
-                    new Question("Which historical site in Quthing served as a refuge during the Basotho-Boer War and is now a museum?", new String[]{"Morija Museum", "Masitise Cave House", "Liphofung Cave"}, "Masitise Cave House")
-            ),
-            "thaba_bosiu", List.of(
-                    new Question("Which mountain is associated with the founding of Lesotho?", new String[]{"Thaba-Bosiu", "Qiloane", "Drakensberg"}, "Thaba-Bosiu"),
-                    new Question("Who was the founder of Lesotho?", new String[]{"Letsie I", "Moshoeshoe I", "Seeiso"}, "Moshoeshoe I"),
-                    new Question("What is the significance of Thaba-Bosiu?", new String[]{"Royal palace", "Historical fortress", "Mining center"}, "Historical fortress")
-            ),
-            "tsehlanyane", List.of(
-                    new Question("In which mountain range is Ts'ehlanyane National Park located?", new String[]{"Drakensberg", "Maluti Mountains", "Lebombo Mountains"}, "Maluti Mountains"),
-                    new Question("What is a prominent feature of Ts'ehlanyane's landscape?", new String[]{"Vast grasslands", "Indigenous forest", "High-altitude bamboo"}, "High-altitude bamboo"),
-                    new Question("Which river system has its source in the Ts'ehlanyane area?", new String[]{"Senqu River", "Mohokare River", "Malibamat'so River"}, "Malibamat'so River"),
-                    new Question("What type of accommodation is primarily found within Ts'ehlanyane National Park?", new String[]{"Luxury hotels", "Self-catering chalets", "Backpacker hostels"}, "Self-catering chalets")
-            ),
-            "liphofung", List.of(
-                    new Question("What is Liphofung primarily known for?", new String[]{"Diamond mining", "Ancient rock paintings", "Large bat colonies"}, "Ancient rock paintings"),
-                    new Question("Which King of Lesotho is historically linked to Liphofung Cave?", new String[]{"Letsie II", "Moshoeshoe I", "David Mohohlo"}, "Moshoeshoe I"),
-                    new Question("What type of rock shelter is Liphofung Cave?", new String[]{"Limestone cave", "Sandstone overhang", "Volcanic tunnel"}, "Sandstone overhang")
-            ),
-            "sanipass", List.of(
-                    new Question("Which two countries does Sani Pass connect?", new String[]{"Lesotho and South Africa", "Lesotho and Eswatini", "South Africa and Namibia"}, "Lesotho and South Africa"),
-                    new Question("What is the typical vehicle requirement for driving up Sani Pass?", new String[]{"Any sedan car", "High-clearance 4x4 vehicle", "Motorcycle only"}, "High-clearance 4x4 vehicle"),
-                    new Question("What is the name of the famous pub located at the top of Sani Pass on the South African side?", new String[]{"The Highest Pub in Africa", "Sani Top Tavern", "Mountain View Inn"}, "The Highest Pub in Africa")
-            ),
-            "maletsunyane", List.of(
-                    new Question("Near which town is Maletsunyane Falls primarily located?", new String[]{"Maseru", "Semonkong", "Qacha's Nek"}, "Semonkong"),
-                    new Question("Maletsunyane Falls is famous for being one of the highest of what type of waterfall in Africa?", new String[]{"Tiered waterfalls", "Block waterfalls", "Single-drop waterfalls"}, "Single-drop waterfalls"),
-                    new Question("Which river plunges over the cliff to form Maletsunyane Falls?", new String[]{"Senqunyane River", "Orange River", "Makhaleng River"}, "Senqunyane River")
-            ),
-            "pioneermall", List.of(
-                    new Question("In which city is Pioneer Mall located?", new String[]{"Maseru", "Mafeteng", "Hlotse"}, "Maseru"),
-                    new Question("Compared to Maseru Mall, is Pioneer Mall generally considered larger or smaller?", new String[]{"Larger", "Smaller", "About the same size"}, "Smaller"),
-                    new Question("What type of establishment would you typically find in Pioneer Mall?", new String[]{"Heavy industrial factories", "Residential apartments", "Retail stores and restaurants"}, "Retail stores and restaurants")
-            )
-    );
+    // Instance of QuizManager
+    private QuizManager quizManager;
 
     public MapController(VBox infoDisplay) {
         this.infoDisplay = infoDisplay;
         mapView = new javafx.scene.web.WebView();
         engine = mapView.getEngine();
+
+        // Initialize QuizManager, passing the infoDisplay so it can manage its UI
+        this.quizManager = new QuizManager(infoDisplay);
 
         engine.load(getClass().getResource("/map/map.html").toExternalForm());
 
@@ -115,16 +68,6 @@ public class MapController {
                 win.setMember("javaConnector", this);
             }
         });
-
-        nextButton.setOnAction(event -> {
-            if (currentQuestionIndex < currentQuestions.size() - 1) {
-                currentQuestionIndex++;
-                displayQuestion();
-            } else {
-                displayResults();
-            }
-        });
-        nextButton.setVisible(false);
 
         audioTimeSlider = new Slider();
         HBox audioTimeLabels = new HBox(5, currentAudioTimeLabel, new Label("/"), durationAudioLabel);
@@ -180,13 +123,10 @@ public class MapController {
             infoDisplay.getChildren().clear();
             stopAudio();
             audioControlsContainer.setVisible(false);
-            currentQuizLocation = location;
-            currentQuestionIndex = -1;
-            userAnswers.clear();
-            feedbackLabel.setText("");
-            optionsBox.getChildren().clear();
-            nextButton.setVisible(false);
-            quizContainer.getChildren().clear();
+            // Clear any previous quiz UI elements if they were added
+            quizManager.clearQuizUI();
+
+
             isVideoFullscreen = false;
             videoViewIndex = -1;
             videoControlsIndex = -1;
@@ -264,7 +204,7 @@ public class MapController {
 
             Button quizButton = new Button("Start Quiz");
             quizButton.setMaxWidth(Double.MAX_VALUE);
-            quizButton.setOnAction(event -> startQuiz(location));
+            quizButton.setOnAction(event -> quizManager.startQuiz(location)); // Delegate to QuizManager
 
             // Store potential indices (though not used for image in this implementation)
             int imageIndex = infoDisplay.getChildren().indexOf(imageView);
@@ -461,85 +401,6 @@ public class MapController {
         int minutes = intDuration / 60;
         int seconds = intDuration - minutes * 60;
         return String.format("%d:%02d", minutes, seconds);
-    }
-
-    private void startQuiz(String location) {
-        currentQuestionIndex = 0;
-        currentQuestions = locationQuizzes.get(location);
-        if (currentQuestions != null && !currentQuestions.isEmpty()) {
-            quizContainer.getChildren().clear();
-            displayQuestion();
-            infoDisplay.getChildren().add(quizContainer);
-        } else {
-            Label noQuizLabel = new Label("No quiz available for " + location);
-            infoDisplay.getChildren().add(noQuizLabel);
-        }
-    }
-
-    private void displayQuestion() {
-        quizContainer.getChildren().clear();
-        feedbackLabel.setText("");
-        optionsBox.getChildren().clear();
-        nextButton.setVisible(false);
-
-        if (currentQuestionIndex >= 0 && currentQuestionIndex < currentQuestions.size()) {
-            Question currentQuestion = currentQuestions.get(currentQuestionIndex);
-            Label questionLabel = new Label(currentQuestion.getQuestion());
-            questionLabel.setStyle("-fx-font-weight: bold; -fx-padding: 0 0 5 0;");
-            questionLabel.setWrapText(true);
-
-            for (String option : currentQuestion.getOptions()) {
-                Button optionButton = new Button(option);
-                optionButton.setMaxWidth(Double.MAX_VALUE);
-                optionButton.setOnAction(event -> {
-                    String selectedAnswer = optionButton.getText();
-                    userAnswers.put(currentQuestion.getQuestion(), selectedAnswer);
-                    if (selectedAnswer.equals(currentQuestion.getAnswer())) {
-                        feedbackLabel.setText("Correct!");
-                        feedbackLabel.setTextFill(Color.GREEN);
-                    } else {
-                        feedbackLabel.setText("Incorrect. Correct answer: " + currentQuestion.getAnswer());
-                        feedbackLabel.setTextFill(Color.RED);
-                    }
-                    optionsBox.getChildren().forEach(node -> node.setDisable(true));
-                    nextButton.setText(currentQuestionIndex < currentQuestions.size() - 1 ? "Next Question" : "Submit Quiz");
-                    nextButton.setVisible(true);
-                });
-                optionsBox.getChildren().add(optionButton);
-            }
-
-            quizContainer.getChildren().addAll(questionLabel, optionsBox, feedbackLabel, nextButton);
-        }
-    }
-
-    private void displayResults() {
-        quizContainer.getChildren().clear();
-        int score = 0;
-        for (Question q : currentQuestions) {
-            String userAnswer = userAnswers.get(q.getQuestion());
-            Label resultLabel = new Label(q.getQuestion() + "\n - Your answer: " + userAnswer +
-                    (userAnswer != null && userAnswer.equals(q.getAnswer()) ? " (Correct)" : " (Incorrect, Correct answer: " + q.getAnswer() + ")"));
-            resultLabel.setWrapText(true);
-            quizContainer.getChildren().add(resultLabel);
-            if (userAnswer != null && userAnswer.equals(q.getAnswer())) {
-                score++;
-            }
-        }
-        Label finalScoreLabel = new Label("Your final score: " + score + " out of " + currentQuestions.size());
-        finalScoreLabel.setStyle("-fx-font-weight: bold; -fx-padding: 0 0 10 0;");
-
-        Button tryAgainButton = new Button("Try Again");
-        tryAgainButton.setMaxWidth(Double.MAX_VALUE);
-        tryAgainButton.setOnAction(event -> startQuiz(currentQuizLocation));
-
-        Button exitButton = new Button("Exit Quiz");
-        exitButton.setMaxWidth(Double.MAX_VALUE);
-        exitButton.setOnAction(event -> {
-            quizContainer.getChildren().clear();
-            // Optionally, you could re-display the initial location info here if needed
-        });
-
-        quizContainer.getChildren().addAll(finalScoreLabel, tryAgainButton, exitButton);
     }
 
     public javafx.scene.web.WebView getMapView() {
