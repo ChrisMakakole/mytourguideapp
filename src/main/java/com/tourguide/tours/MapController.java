@@ -54,6 +54,7 @@ public class MapController {
 
     public MapController(VBox infoDisplay) {
         this.infoDisplay = infoDisplay;
+        this.infoDisplay.setId("infoDisplay"); // Set ID for CSS
         mapView = new javafx.scene.web.WebView();
         engine = mapView.getEngine();
 
@@ -70,13 +71,21 @@ public class MapController {
         });
 
         audioTimeSlider = new Slider();
+        audioTimeSlider.getStyleClass().add("slider"); // Apply slider style
         HBox audioTimeLabels = new HBox(5, currentAudioTimeLabel, new Label("/"), durationAudioLabel);
         audioTimeLabels.setAlignment(Pos.CENTER);
+        currentAudioTimeLabel.getStyleClass().add("label"); // Apply label style
+        durationAudioLabel.getStyleClass().add("label"); // Apply label style
+
         HBox audioButtonControls = new HBox(10, playPauseAudioButton, stopAudioButton);
         audioButtonControls.setAlignment(Pos.CENTER);
+        playPauseAudioButton.getStyleClass().add("button"); // Apply button style
+        stopAudioButton.getStyleClass().add("button"); // Apply button style
+
         audioControlsContainer.getChildren().addAll(audioTimeLabels, audioTimeSlider, audioButtonControls);
         audioControlsContainer.setAlignment(Pos.CENTER);
         audioControlsContainer.setVisible(false);
+        audioControlsContainer.setId("audioControlsContainer"); // Set ID for CSS
 
         playPauseAudioButton.setOnAction(event -> {
             if (audioPlayer != null) {
@@ -140,12 +149,14 @@ public class MapController {
             imageView.setFitWidth(320);
             imageView.setPreserveRatio(true);
             imageView.setStyle("-fx-cursor: hand;"); // Make it look clickable
+            imageView.getStyleClass().add("info-display-image-view"); // Apply CSS class
             imageView.setOnMouseClicked(event -> showFullscreenImage(image));
 
             Label nameLabel = new Label(location.toUpperCase());
-            nameLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
+            nameLabel.getStyleClass().addAll("info-display-label", "name-label"); // Apply CSS classes
 
             Label descriptionLabel = new Label();
+            descriptionLabel.getStyleClass().addAll("info-display-label", "description-label"); // Apply CSS classes
             switch(location)
             {
                 case "maseru":
@@ -196,14 +207,17 @@ public class MapController {
 
             Button playVideoButton = new Button("Play Video");
             playVideoButton.setMaxWidth(Double.MAX_VALUE);
+            playVideoButton.getStyleClass().add("button"); // Apply general button style
             playVideoButton.setOnAction(event -> loadAndPlayVideoFullscreen());
 
             Button AudioGuideButton = new Button("Start Audio Guide");
             AudioGuideButton.setMaxWidth(Double.MAX_VALUE);
+            AudioGuideButton.getStyleClass().add("button"); // Apply general button style
             AudioGuideButton.setOnAction(event -> playAudio(audioPath));
 
             Button quizButton = new Button("Start Quiz");
             quizButton.setMaxWidth(Double.MAX_VALUE);
+            quizButton.getStyleClass().add("button"); // Apply general button style
             quizButton.setOnAction(event -> quizManager.startQuiz(location)); // Delegate to QuizManager
 
             // Store potential indices (though not used for image in this implementation)
@@ -224,16 +238,18 @@ public class MapController {
             currentFullscreenImageView.setPreserveRatio(true);
             currentFullscreenImageView.setFitWidth(rootStackPane.getWidth() * 0.9); // Adjust as needed
             currentFullscreenImageView.setFitHeight(rootStackPane.getHeight() * 0.9); // Adjust as needed
+            currentFullscreenImageView.getStyleClass().add("image-view"); // Apply general image-view style
 
             exitFullscreenImageButton = new Button("Exit Fullscreen");
             exitFullscreenImageButton.setOnAction(event -> exitFullscreenImage());
-            exitFullscreenImageButton.setStyle("-fx-font-size: 16px; -fx-padding: 10px;");
+            exitFullscreenImageButton.setStyle("-fx-font-size: 16px; -fx-padding: 10px;"); // Keep inline or move to CSS if many
+            exitFullscreenImageButton.getStyleClass().add("button"); // Apply general button style
 
             VBox fullscreenLayout = new VBox(10, currentFullscreenImageView, exitFullscreenImageButton);
             fullscreenLayout.setAlignment(Pos.CENTER);
             StackPane.setAlignment(fullscreenLayout, Pos.CENTER);
-            fullscreenLayout.setStyle("-fx-background-color: rgba(0, 0, 0, 0.8);"); // Darker background
-            fullscreenLayout.setId("fullscreenImageOverlay");
+            fullscreenLayout.getStyleClass().add("fullscreen-overlay"); // Apply general overlay style
+            fullscreenLayout.setId("fullscreenImageOverlay"); // Set ID for CSS
 
             rootStackPane.getChildren().removeIf(node -> node.getId() != null && node.getId().equals("fullscreenImageOverlay"));
             rootStackPane.getChildren().add(fullscreenLayout);
@@ -258,12 +274,16 @@ public class MapController {
             currentMediaView = new MediaView(currentVideoPlayer);
             currentMediaView.setFitWidth(rootStackPane.getWidth() * 0.8);
             currentMediaView.setFitHeight(-1);
+            currentMediaView.getStyleClass().add("media-view"); // Apply media-view style
 
             Slider videoTimeSlider = new Slider();
+            videoTimeSlider.getStyleClass().add("slider"); // Apply slider style
             HBox videoTimeLabels = new HBox(5);
             videoTimeLabels.setAlignment(Pos.CENTER);
             Label currentVideoTimeLabel = new Label("0:00");
             Label durationVideoLabel = new Label("0:00");
+            currentVideoTimeLabel.getStyleClass().add("label"); // Apply label style
+            durationVideoLabel.getStyleClass().add("label"); // Apply label style
             videoTimeLabels.getChildren().addAll(currentVideoTimeLabel, new Label("/"), durationVideoLabel);
 
             HBox videoButtonControls = new HBox(10);
@@ -271,6 +291,11 @@ public class MapController {
             Button playPauseVideoButton = new Button("Play");
             Button stopVideoButton = new Button("Stop");
             fullscreenVideoButton = new Button("Exit Fullscreen");
+
+            playPauseVideoButton.getStyleClass().add("button"); // Apply general button style
+            stopVideoButton.getStyleClass().add("button"); // Apply general button style
+            fullscreenVideoButton.getStyleClass().add("button"); // Apply general button style
+
             videoButtonControls.getChildren().addAll(playPauseVideoButton, stopVideoButton, fullscreenVideoButton);
 
             currentVideoPlayer.setOnReady(() -> {
@@ -310,19 +335,19 @@ public class MapController {
                 currentVideoPlayer.seek(Duration.ZERO);
                 playPauseVideoButton.setText("Play");
                 videoTimeSlider.setValue(0);
-                videoTimeSlider.setValue(0);
                 currentVideoTimeLabel.setText("0:00");
             });
 
             currentVideoControls = new VBox(5);
             currentVideoControls.getChildren().addAll(videoTimeLabels, videoTimeSlider, videoButtonControls);
             currentVideoControls.setAlignment(Pos.CENTER);
+            currentVideoControls.setId("currentVideoControls"); // Set ID for CSS
 
             VBox fullscreenOverlay = new VBox(10, currentMediaView, currentVideoControls);
             fullscreenOverlay.setAlignment(Pos.CENTER);
             StackPane.setAlignment(fullscreenOverlay, Pos.CENTER);
-            fullscreenOverlay.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5);");
-            fullscreenOverlay.setId("fullscreenVideoOverlay");
+            fullscreenOverlay.getStyleClass().add("fullscreen-overlay"); // Apply general overlay style
+            fullscreenOverlay.setId("fullscreenVideoOverlay"); // Set ID for CSS
 
             rootStackPane.getChildren().removeIf(node -> node.getId() != null && node.getId().equals("fullscreenVideoOverlay"));
             rootStackPane.getChildren().add(fullscreenOverlay);

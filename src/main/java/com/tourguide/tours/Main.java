@@ -36,7 +36,9 @@ public class Main extends Application {
             HBox topNav = new HBox(10);
             topNav.setPadding(new Insets(10));
             topNav.setAlignment(Pos.CENTER_LEFT);
+            topNav.setId("topNav"); // Set ID for CSS
             Button homeButton = new Button("Home");
+            homeButton.getStyleClass().add("button"); // Apply general button style
 
             homeButton.setOnAction(event -> {
                 // Clear the current content of the sideNavContent
@@ -46,14 +48,18 @@ public class Main extends Application {
                 thumbnailContent();
 
                 // Optionally, you might want to reset the center view here if needed.
+                // For example, you might want to show the map without specific info
+                // mapController.resetMapView(); // You would need to add this method to MapController
             });
-            topNav.getChildren().addAll(homeButton);
+            topNav
+                    .getChildren().addAll(homeButton);
             rootBorderPane.setTop(topNav);
 
             // Side Navigation
             sideNavContent = new VBox(10); // Initialize the container for side nav content
             sideNavContent.setPadding(new Insets(10));
             sideNavContent.setPrefWidth(350);
+            sideNavContent.setId("sideNavContent"); // Set ID for CSS
 
             thumbnailContent();
 
@@ -61,6 +67,7 @@ public class Main extends Application {
             sideNavScrollPane.setFitToWidth(true); // Make the scroll pane width match the content width
             sideNavScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED); // Show vertical scrollbar only when needed
             sideNavScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER); // Never show horizontal scrollbar
+            sideNavScrollPane.getStyleClass().add("scroll-pane"); // Apply scroll pane style
 
             rootBorderPane.setLeft(sideNavScrollPane); // Set the ScrollPane as the left node
 
@@ -73,9 +80,11 @@ public class Main extends Application {
             ScrollPane overallScrollPane = new ScrollPane(rootBorderPane);
             overallScrollPane.setFitToWidth(true);
             overallScrollPane.setFitToHeight(true); // Ensure the map can take full height
+            overallScrollPane.getStyleClass().add("scroll-pane"); // Apply scroll pane style
 
             // Create the StackPane and add the ScrollPane (containing the map layout)
             rootStackPane = new StackPane(overallScrollPane);
+            rootStackPane.getStyleClass().add("root"); // Apply general root style
 
             Scene scene = new Scene(rootStackPane, 1200, 800);
             scene.getStylesheets().add(getClass().getResource("/styles/styles.css").toExternalForm());
@@ -87,17 +96,12 @@ public class Main extends Application {
             // Store the rootStackPane in the MapController for overlaying the video/image
             mapController.setRootStackPane(rootStackPane);
 
-            // Optionally load the first location by default
-//            if (!locations.isEmpty()) {
-//                mapController.showLocationInfo(locations.get(0));
-//            }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    public void thumbnailContent()
-    {
+
+    public void thumbnailContent() {
         // Populate sidebar with initial location previews
         for (String location : locations) {
             String imageName = "/map/images/" + location + "_thumb.jpg";
@@ -105,15 +109,18 @@ public class Main extends Application {
             ImageView imageView = new ImageView(image);
             imageView.setFitWidth(250);
             imageView.setPreserveRatio(true);
-            imageView.setStyle("-fx-cursor: hand;");
+            imageView.setStyle("-fx-cursor: hand;"); // Keep inline style for cursor for specific element
+            imageView.getStyleClass().add("image-view"); // Apply general image-view style if you make one
 
             Label nameLabel = new Label(location.toUpperCase());
-            nameLabel.setStyle("-fx-font-weight: bold;");
+            nameLabel.setStyle("-fx-font-weight: bold;"); // Keep inline style for font-weight or move to CSS if many labels
             nameLabel.setAlignment(Pos.CENTER);
+            nameLabel.getStyleClass().add("label"); // Apply general label style
 
             VBox locationPreview = new VBox(5, imageView, nameLabel);
             locationPreview.setAlignment(Pos.CENTER);
-            locationPreview.setStyle("-fx-padding: 10px; -fx-cursor: hand;");
+            locationPreview.setStyle("-fx-padding: 10px; -fx-cursor: hand;"); // Keep inline for specific padding/cursor or move
+            locationPreview.getStyleClass().add("location-preview"); // Apply location preview style
 
             final String currentLocation = location;
             locationPreview.setOnMouseClicked((MouseEvent event) -> {

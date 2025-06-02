@@ -68,6 +68,9 @@ public class QuizManager {
     public QuizManager(VBox infoDisplay) {
         this.infoDisplay = infoDisplay;
 
+        // Apply CSS ID to the main quiz container
+        quizContainer.setId("quizContainer");
+
         nextButton.setOnAction(event -> {
             if (currentQuestionIndex < currentQuestions.size() - 1) {
                 currentQuestionIndex++;
@@ -77,6 +80,7 @@ public class QuizManager {
             }
         });
         nextButton.setVisible(false); // Initially hidden
+        nextButton.getStyleClass().add("quiz-action-button"); // Apply CSS class
     }
 
     public void startQuiz(String location) {
@@ -97,6 +101,7 @@ public class QuizManager {
             }
         } else {
             Label noQuizLabel = new Label("No quiz available for " + location);
+            noQuizLabel.getStyleClass().add("label"); // Apply general label style
             quizContainer.getChildren().add(noQuizLabel);
             if (!infoDisplay.getChildren().contains(quizContainer)) {
                 infoDisplay.getChildren().add(quizContainer);
@@ -109,16 +114,18 @@ public class QuizManager {
         feedbackLabel.setText("");
         optionsBox.getChildren().clear();
         nextButton.setVisible(false);
+        optionsBox.getStyleClass().add("options-box"); // Apply CSS class to optionsBox
 
         if (currentQuestionIndex >= 0 && currentQuestionIndex < currentQuestions.size()) {
             Question question = currentQuestions.get(currentQuestionIndex);
             Label questionLabel = new Label(question.getQuestion());
-            questionLabel.setStyle("-fx-font-weight: bold; -fx-padding: 0 0 5 0;");
+            questionLabel.getStyleClass().add("question-label"); // Apply CSS class
             questionLabel.setWrapText(true);
 
             for (String option : question.getOptions()) {
                 Button optionButton = new Button(option);
                 optionButton.setMaxWidth(Double.MAX_VALUE);
+                optionButton.getStyleClass().add("options-box-button"); // Apply CSS class
                 optionButton.setOnAction(event -> {
                     String selectedAnswer = optionButton.getText();
                     userAnswers.put(question.getQuestion(), selectedAnswer);
@@ -129,6 +136,7 @@ public class QuizManager {
                         feedbackLabel.setText("Incorrect. Correct answer: " + question.getAnswer());
                         feedbackLabel.setTextFill(Color.RED);
                     }
+                    feedbackLabel.getStyleClass().add("feedback-label"); // Apply CSS class
                     optionsBox.getChildren().forEach(node -> node.setDisable(true)); // Disable all option buttons
                     nextButton.setText(currentQuestionIndex < currentQuestions.size() - 1 ? "Next Question" : "Submit Quiz");
                     nextButton.setVisible(true);
@@ -148,20 +156,23 @@ public class QuizManager {
             Label resultLabel = new Label(q.getQuestion() + "\n - Your answer: " + (userAnswer != null ? userAnswer : "Not answered") +
                     (userAnswer != null && userAnswer.equals(q.getAnswer()) ? " (Correct)" : " (Incorrect, Correct answer: " + q.getAnswer() + ")"));
             resultLabel.setWrapText(true);
+            resultLabel.getStyleClass().add("results-label"); // Apply general label style for results
             quizContainer.getChildren().add(resultLabel);
             if (userAnswer != null && userAnswer.equals(q.getAnswer())) {
                 score++;
             }
         }
         Label finalScoreLabel = new Label("Your final score: " + score + " out of " + currentQuestions.size());
-        finalScoreLabel.setStyle("-fx-font-weight: bold; -fx-padding: 10 0 10 0;");
+        finalScoreLabel.getStyleClass().add("final-score-label"); // Apply CSS class
 
         Button tryAgainButton = new Button("Try Again");
         tryAgainButton.setMaxWidth(Double.MAX_VALUE);
+        tryAgainButton.getStyleClass().add("quiz-action-button"); // Apply CSS class
         tryAgainButton.setOnAction(event -> startQuiz(currentQuizLocation));
 
         Button exitButton = new Button("Exit Quiz");
         exitButton.setMaxWidth(Double.MAX_VALUE);
+        exitButton.getStyleClass().add("quiz-action-button"); // Apply CSS class
         exitButton.setOnAction(event -> clearQuizUI());
 
         quizContainer.getChildren().addAll(finalScoreLabel, tryAgainButton, exitButton);

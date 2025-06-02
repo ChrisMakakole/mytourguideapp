@@ -1,213 +1,226 @@
-/* Base styles */
+/* General Application Styles */
 .root {
-    -fx-font-family: "Segoe UI", sans-serif;
-    -fx-font-size: 14px;
-    -fx-background-color: #f4f4f4; /* Light grey background */
+    -fx-font-family: "Arial", sans-serif;
+    -fx-background-color: linear-gradient(to bottom right,#697cf5, #dce2fc ); /* Light gray background */
 }
 
-/* Top Navigation */
-.top-nav {
-    -fx-background-color: #333; /* Dark background */
+/* Top Navigation Bar */
+.h-box#topNav { /* If you add an fx:id="topNav" to your top HBox in FXML or set ID in code */
+    -fx-background-color: #336699; /* Dark blue */
     -fx-padding: 10px;
-    -fx-alignment: center-left;
+    -fx-spacing: 10px;
+    -fx-alignment: CENTER_LEFT;
 }
 
-.top-nav .button {
-    -fx-background-color: #555;
+.button {
+    -fx-background-color: #4925c2; /* Green */
     -fx-text-fill: white;
-    -fx-font-weight: bold;
+    -fx-font-size: 14px;
     -fx-padding: 8px 15px;
     -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
     -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 1);
 }
 
-.top-nav .button:hover {
-    -fx-background-color: #777;
+.button:hover {
+    -fx-background-color: #542cdb; /* Darker green on hover */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 7, 0, 0, 1);
 }
 
-/* Side Navigation ScrollPane */
+.button:pressed {
+    -fx-background-color: #4223ad; /* Even darker green on press */
+}
+
+/* Side Navigation */
 .scroll-pane {
-    -fx-background-color: transparent;
+    -fx-background-color: transparent; /* Make scroll pane background transparent */
 }
 
 .scroll-pane > .viewport {
-    -fx-background-color: transparent;
+    -fx-background-color: transparent; /* Make viewport background transparent */
 }
 
-/* Side Navigation Content (VBox) */
-.side-nav-content {
+.v-box#sideNavContent { /* Assuming sideNavContent VBox has an ID */
+    -fx-background-color: #0f2c70; /* Lighter gray for side nav background */
     -fx-padding: 10px;
     -fx-spacing: 10px;
-    -fx-background-color: #ddd; /* Light grey sidebar background */
+    -fx-border-color: #cccccc;
+    -fx-border-width: 0 1px 0 0; /* Right border */
 }
 
-/* Location Preview (VBox in Side Nav) */
-.location-preview {
+.location-preview { /* Style for the VBox containing image and label for each location */
+    -fx-background-color: #5127db;
     -fx-padding: 10px;
-    -fx-spacing: 5px;
-    -fx-alignment: center;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1);
     -fx-cursor: hand;
-    -fx-background-color: white;
-    -fx-border-radius: 5px;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5); /* Subtle shadow */
+    -fx-alignment: CENTER; /* Ensure content is centered within the VBox */
 }
 
 .location-preview:hover {
-    -fx-scale-x: 1.02;
-    -fx-scale-y: 1.02;
-    -fx-transition: scale 0.2s ease-in-out;
+    -fx-background-color: #4223ad; /* Slightly darker on hover */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 7, 0, 0, 1);
 }
 
 .location-preview .image-view {
+    -fx-border-color: #ddd;
+    -fx-border-width: 1px;
     -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
 }
 
 .location-preview .label {
     -fx-font-weight: bold;
-    -fx-font-size: 16px;
-    -fx-text-fill: #333;
+    -fx-font-size: 13px;
+    -fx-text-fill: #ffffff;
+    -fx-padding: 5px 0 0 0;
 }
 
-/* Map View (WebView) - No direct styling here, but you can style elements within the HTML if needed */
-
-/* Location Info Display (VBox in Center) */
-.info-display {
+/* Info Display (Right Panel / Center of BorderPane after map) */
+.v-box#infoDisplay { /* Assuming infoDisplay VBox has an ID */
+    -fx-background-color: #ffffff; /* White background */
     -fx-padding: 20px;
     -fx-spacing: 15px;
+    -fx-alignment: TOP_CENTER; /* Align content to the top center */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-margin: 10px; /* Add some margin around the panel */
 }
 
-.info-display .label-title {
-    -fx-font-size: 20px;
+.info-display-label { /* General label styling within info display */
+    -fx-font-size: 14px;
+    -fx-text-fill: #ffffff;
+    -fx-line-spacing: 1.2;
+}
+
+.info-display-label.name-label { /* Specific style for the location name label */
+    -fx-font-size: 24px;
     -fx-font-weight: bold;
-    -fx-text-fill: #333;
+    -fx-text-fill: #ffffff;
+    -fx-padding: 0 0 10px 0;
 }
 
-.info-display .label-description {
-    -fx-text-fill: #555;
-    -fx-wrap-text: true;
+.info-display-label.description-label { /* Specific style for description label */
+    -fx-font-size: 14px;
+    -fx-text-fill: #ffffff;
+    -fx-padding: 0 0 15px 0;
 }
 
-.info-display .button {
-    -fx-background-color: #4CAF50; /* Green button */
-    -fx-text-fill: white;
-    -fx-font-weight: bold;
-    -fx-padding: 10px 20px;
-    -fx-border-radius: 5px;
-    -fx-cursor: hand;
+.info-display-image-view { /* Image view within info display */
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1px;
+    -fx-padding: 2px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1);
 }
 
-.info-display .button:hover {
-    -fx-background-color: #45a049;
-}
-
-/* Audio Controls */
-.audio-controls-container {
+/* Media Controls (Audio & Video) */
+.v-box#audioControlsContainer, .v-box#currentVideoControls { /* Assuming these VBoxes have IDs */
     -fx-padding: 10px;
     -fx-spacing: 5px;
-    -fx-alignment: center;
-    -fx-background-color: #eee;
+    -fx-alignment: CENTER;
+    -fx-background-color: #f0f0f0;
     -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1px;
 }
 
-.audio-controls-container .label {
-    -fx-font-size: 12px;
-    -fx-text-fill: #666;
+.slider .track {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 5px;
+    -fx-pref-height: 8px;
 }
 
-.audio-controls-container .slider {
-    -fx-pref-width: 200px;
+.slider .thumb {
+    -fx-background-color: #336699; /* Dark blue thumb */
+    -fx-background-radius: 10px;
+    -fx-pref-width: 16px;
+    -fx-pref-height: 16px;
 }
 
-.audio-controls-container .button {
-    -fx-background-color: #007bff; /* Blue button */
-    -fx-text-fill: white;
-    -fx-padding: 5px 10px;
-    -fx-border-radius: 3px;
-    -fx-cursor: hand;
+/* Fullscreen Overlays (Video and Image) */
+#fullscreenVideoOverlay, #fullscreenImageOverlay {
+    -fx-background-color: rgba(0, 0, 0, 0.9); /* Darker overlay for true fullscreen feel */
+    -fx-alignment: CENTER;
+    -fx-padding: 20px;
 }
 
-.audio-controls-container .button:hover {
-    -fx-background-color: #0056b3;
+#fullscreenVideoOverlay .media-view, #fullscreenImageOverlay .image-view {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 20, 0, 0, 0);
 }
 
-/* Quiz Container */
-.quiz-container {
+/* Quiz Styles */
+.v-box#quizContainer { /* Assuming quizContainer VBox has an ID */
     -fx-padding: 15px;
     -fx-spacing: 10px;
+    -fx-alignment: TOP_LEFT;
     -fx-background-color: #f9f9f9;
-    -fx-border-radius: 5px;
-    -fx-border-color: #ddd;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 1px;
 }
 
-.quiz-container .label-question {
+.question-label { /* Style for the question text */
     -fx-font-size: 16px;
     -fx-font-weight: bold;
-    -fx-text-fill: #333;
-    -fx-padding: 0 0 10 0;
+    -fx-text-fill: #ffffff;
+    -fx-padding: 0 0 10px 0;
 }
 
-.quiz-container .options-box .button {
-    -fx-background-color: #008CBA; /* Light blue button */
+.options-box .button { /* Options buttons within the quiz */
+    -fx-background-color: #5884b0; /* Blue for options */
     -fx-text-fill: white;
-    -fx-padding: 8px 15px;
-    -fx-border-radius: 3px;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 15px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
     -fx-cursor: hand;
-    -fx-pref-width: Infinity;
-    -fx-alignment: center-left;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 1);
+    -fx-pref-width: 250px; /* Fixed width for option buttons */
+    -fx-alignment: CENTER_LEFT; /* Align text to left */
 }
 
-.quiz-container .options-box .button:hover {
-    -fx-background-color: #005f7a;
+.options-box .button:hover {
+    -fx-background-color: #5588bb;
 }
 
-.quiz-container .feedback-label {
+.feedback-label {
     -fx-font-weight: bold;
-    -fx-padding: 10 0 0 0;
+    -fx-font-size: 14px;
+    -fx-padding: 5px 0;
 }
 
-.quiz-container .next-button {
-    -fx-background-color: #28a745; /* Success green */
+.final-score-label {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+    -fx-padding: 15px 0 10px 0;
+}
+
+.results-label {
+    -fx-font-size: 15px;
+    -fx-text-fill: #ffffff;
+    -fx-padding: 15px 0 10px 0;
+}
+
+/* Buttons specifically for quiz actions (Next, Try Again, Exit) */
+.quiz-action-button {
+    -fx-background-color: #007bff; /* Dodger blue for general quiz actions */
     -fx-text-fill: white;
-    -fx-font-weight: bold;
+    -fx-font-size: 14px;
     -fx-padding: 10px 20px;
     -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
     -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 1);
+    -fx-pref-width: 200px; /* Consistent width */
+    -fx-alignment: CENTER;
 }
 
-.quiz-container .next-button:hover {
-    -fx-background-color: #1e7e34;
-}
-
-.quiz-container .result-label {
-    -fx-padding: 5 0 0 0;
-    -fx-text-fill: #555;
-}
-
-.quiz-container .try-again-button, .quiz-container .exit-button {
-    -fx-background-color: #6c757d; /* Grey button */
-    -fx-text-fill: white;
-    -fx-padding: 8px 15px;
-    -fx-border-radius: 5px;
-    -fx-cursor: hand;
-}
-
-.quiz-container .try-again-button:hover, .quiz-container .exit-button:hover {
-    -fx-background-color: #5a6268;
-}
-
-/* Fullscreen Overlay */
-#fullscreenVideoOverlay, #fullscreenImageOverlay {
-    -fx-background-color: rgba(0, 0, 0, 0.8); /* Dark semi-transparent background */
-}
-
-#fullscreenVideoOverlay .button, #fullscreenImageOverlay .button {
-    -fx-background-color: #333;
-    -fx-text-fill: white;
-    -fx-padding: 8px 15px;
-    -fx-border-radius: 5px;
-    -fx-cursor: hand;
-}
-
-#fullscreenVideoOverlay .button:hover, #fullscreenImageOverlay .button:hover {
-    -fx-background-color: #555;
+.quiz-action-button:hover {
+    -fx-background-color: #0056b3;
 }
