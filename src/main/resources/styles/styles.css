@@ -1,7 +1,213 @@
+/* Base styles */
 .root {
-    -fx-background-color: #f4f4f4;
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-font-size: 14px;
+    -fx-background-color: #f4f4f4; /* Light grey background */
 }
 
-.label {
+/* Top Navigation */
+.top-nav {
+    -fx-background-color: #333; /* Dark background */
+    -fx-padding: 10px;
+    -fx-alignment: center-left;
+}
+
+.top-nav .button {
+    -fx-background-color: #555;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 15px;
+    -fx-border-radius: 5px;
+    -fx-cursor: hand;
+}
+
+.top-nav .button:hover {
+    -fx-background-color: #777;
+}
+
+/* Side Navigation ScrollPane */
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+/* Side Navigation Content (VBox) */
+.side-nav-content {
+    -fx-padding: 10px;
+    -fx-spacing: 10px;
+    -fx-background-color: #ddd; /* Light grey sidebar background */
+}
+
+/* Location Preview (VBox in Side Nav) */
+.location-preview {
+    -fx-padding: 10px;
+    -fx-spacing: 5px;
+    -fx-alignment: center;
+    -fx-cursor: hand;
+    -fx-background-color: white;
+    -fx-border-radius: 5px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5); /* Subtle shadow */
+}
+
+.location-preview:hover {
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+    -fx-transition: scale 0.2s ease-in-out;
+}
+
+.location-preview .image-view {
+    -fx-border-radius: 5px;
+}
+
+.location-preview .label {
+    -fx-font-weight: bold;
     -fx-font-size: 16px;
+    -fx-text-fill: #333;
+}
+
+/* Map View (WebView) - No direct styling here, but you can style elements within the HTML if needed */
+
+/* Location Info Display (VBox in Center) */
+.info-display {
+    -fx-padding: 20px;
+    -fx-spacing: 15px;
+}
+
+.info-display .label-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+}
+
+.info-display .label-description {
+    -fx-text-fill: #555;
+    -fx-wrap-text: true;
+}
+
+.info-display .button {
+    -fx-background-color: #4CAF50; /* Green button */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 5px;
+    -fx-cursor: hand;
+}
+
+.info-display .button:hover {
+    -fx-background-color: #45a049;
+}
+
+/* Audio Controls */
+.audio-controls-container {
+    -fx-padding: 10px;
+    -fx-spacing: 5px;
+    -fx-alignment: center;
+    -fx-background-color: #eee;
+    -fx-border-radius: 5px;
+}
+
+.audio-controls-container .label {
+    -fx-font-size: 12px;
+    -fx-text-fill: #666;
+}
+
+.audio-controls-container .slider {
+    -fx-pref-width: 200px;
+}
+
+.audio-controls-container .button {
+    -fx-background-color: #007bff; /* Blue button */
+    -fx-text-fill: white;
+    -fx-padding: 5px 10px;
+    -fx-border-radius: 3px;
+    -fx-cursor: hand;
+}
+
+.audio-controls-container .button:hover {
+    -fx-background-color: #0056b3;
+}
+
+/* Quiz Container */
+.quiz-container {
+    -fx-padding: 15px;
+    -fx-spacing: 10px;
+    -fx-background-color: #f9f9f9;
+    -fx-border-radius: 5px;
+    -fx-border-color: #ddd;
+}
+
+.quiz-container .label-question {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+    -fx-padding: 0 0 10 0;
+}
+
+.quiz-container .options-box .button {
+    -fx-background-color: #008CBA; /* Light blue button */
+    -fx-text-fill: white;
+    -fx-padding: 8px 15px;
+    -fx-border-radius: 3px;
+    -fx-cursor: hand;
+    -fx-pref-width: Infinity;
+    -fx-alignment: center-left;
+}
+
+.quiz-container .options-box .button:hover {
+    -fx-background-color: #005f7a;
+}
+
+.quiz-container .feedback-label {
+    -fx-font-weight: bold;
+    -fx-padding: 10 0 0 0;
+}
+
+.quiz-container .next-button {
+    -fx-background-color: #28a745; /* Success green */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 5px;
+    -fx-cursor: hand;
+}
+
+.quiz-container .next-button:hover {
+    -fx-background-color: #1e7e34;
+}
+
+.quiz-container .result-label {
+    -fx-padding: 5 0 0 0;
+    -fx-text-fill: #555;
+}
+
+.quiz-container .try-again-button, .quiz-container .exit-button {
+    -fx-background-color: #6c757d; /* Grey button */
+    -fx-text-fill: white;
+    -fx-padding: 8px 15px;
+    -fx-border-radius: 5px;
+    -fx-cursor: hand;
+}
+
+.quiz-container .try-again-button:hover, .quiz-container .exit-button:hover {
+    -fx-background-color: #5a6268;
+}
+
+/* Fullscreen Overlay */
+#fullscreenVideoOverlay, #fullscreenImageOverlay {
+    -fx-background-color: rgba(0, 0, 0, 0.8); /* Dark semi-transparent background */
+}
+
+#fullscreenVideoOverlay .button, #fullscreenImageOverlay .button {
+    -fx-background-color: #333;
+    -fx-text-fill: white;
+    -fx-padding: 8px 15px;
+    -fx-border-radius: 5px;
+    -fx-cursor: hand;
+}
+
+#fullscreenVideoOverlay .button:hover, #fullscreenImageOverlay .button:hover {
+    -fx-background-color: #555;
 }

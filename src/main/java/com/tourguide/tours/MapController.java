@@ -64,6 +64,11 @@ public class MapController {
                     new Question("Which river flows through Maseru?", new String[]{"Orange River", "Caledon River", "Malibamat'so River"}, "Caledon River"),
                     new Question("What is the main airport near Maseru?", new String[]{"Moshoeshoe I International Airport", "Mejametalana Airport", "Leribe Airport"}, "Moshoeshoe I International Airport")
             ),
+            "quthing", List.of(
+                    new Question("Quthing District is most famous for its abundance of what prehistoric discovery?", new String[]{"Ancient pottery", "Dinosaur footprints", "Early human tools"}, "Dinosaur footprints"),
+                    new Question("What is the capital town of the Quthing District, also known as Moyeni?", new String[]{"Mokhotlong", "Quthing", "Thaba-Tseka"}, "Quthing"),
+                    new Question("Which historical site in Quthing served as a refuge during the Basotho-Boer War and is now a museum?", new String[]{"Morija Museum", "Masitise Cave House", "Liphofung Cave"}, "Masitise Cave House")
+            ),
             "thaba_bosiu", List.of(
                     new Question("Which mountain is associated with the founding of Lesotho?", new String[]{"Thaba-Bosiu", "Qiloane", "Drakensberg"}, "Thaba-Bosiu"),
                     new Question("Who was the founder of Lesotho?", new String[]{"Letsie I", "Moshoeshoe I", "Seeiso"}, "Moshoeshoe I"),
@@ -200,7 +205,53 @@ public class MapController {
             Label nameLabel = new Label(location.toUpperCase());
             nameLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
 
-            Label descriptionLabel = new Label("Information about " + location + " will go here.");
+            Label descriptionLabel = new Label();
+            switch(location)
+            {
+                case "maseru":
+                    descriptionLabel.setText("Maseru is the vibrant capital city of Lesotho, nestled along the Caledon River. " +
+                            "It serves as the economic and administrative heart of the mountain kingdom. " +
+                            "Visitors can explore local markets, historical sites, and experience a blend " +
+                            "of modern and traditional Basotho culture.");
+                    break;
+                case "quthing":
+                    descriptionLabel.setText("Quthing District, also known as Moyeni, is located in southern Lesotho. " +
+                            "It's particularly renowned for its rich palaeontological heritage, " +
+                            "featuring numerous dinosaur footprints. The district also boasts " +
+                            "the unique Masitise Cave House museum.");
+                    break;
+                case "thaba_bosiu":
+                    descriptionLabel.setText("Thaba-Bosiu is a historical mountain plateau and a national shrine of great " +
+                            "significance to the Basotho people. It served as the impregnable stronghold and capital of " +
+                            "King Moshoeshoe I during the 19th century. ");
+                    break;
+                case "tsehlanyane":
+                    descriptionLabel.setText("Ts'ehlanyane National Park is a pristine wilderness located in the Maluti " +
+                            "Mountains of northern Lesotho. It is characterized by its high-altitude indigenous forest, " +
+                            "unique to the region, and stunning mountain scenery.");
+                    break;
+                case "liphofung":
+                    descriptionLabel.setText("Liphofung Cave and Cultural Historical Site is a significant sandstone rock " +
+                            "shelter located in Lesotho. It is renowned for its well-preserved San rock paintings, offering" +
+                            " a glimpse into ancient hunter-gatherer life.");
+                    break;
+                case "sanipass":
+                    descriptionLabel.setText("Sani Pass is an iconic, dramatic mountain pass connecting Lesotho with KwaZulu-Natal, " +
+                            "South Africa. It is famous for its challenging winding gravel road, only safely traversable by 4x4 vehicles." +
+                            " At its summit lies \"The Highest Pub in Africa,\" offering breathtaking views.");
+                    break;
+                case "maletsunyane":
+                    descriptionLabel.setText("Maletsunyane Falls is one of Africa's highest single-drop waterfalls, plunging 192 meters " +
+                            "into a gorge. Located near the town of Semonkong in Lesotho, the falls are a spectacular natural wonder.");
+                    break;
+                case "pioneermall":
+                    descriptionLabel.setText("Pioneer Mall is a prominent shopping center situated in Maseru, the capital city of Lesotho. " +
+                            "It offers a convenient retail experience with a variety of shops, restaurants, and services.");
+                    break;
+                default:
+                    descriptionLabel.setText("no info");
+
+            }
             descriptionLabel.setWrapText(true);
 
             Button playVideoButton = new Button("Play Video");
