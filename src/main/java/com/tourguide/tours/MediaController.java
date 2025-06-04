@@ -62,7 +62,7 @@ public class MediaController {
         VBox root = new VBox(10, view, controls);
         Stage stage = new Stage();
         stage.setTitle("Video Tour");
-        stage.setScene(new Scene(root, 800, 550)); // Increased height to accommodate controls
+        stage.setScene(new Scene(root, 800, 550));
         stage.show();
 
         player.setOnEndOfMedia(() -> {

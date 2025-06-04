@@ -1,7 +1,7 @@
-/* General Application Styles */
+
 .root {
     -fx-font-family: "Arial", sans-serif;
-    -fx-background-color: linear-gradient(to bottom right,#697cf5, #dce2fc ); /* Light gray background */
+    -fx-background-color: linear-gradient(to bottom right,#697cf5, #dce2fc );
 }
 
 .Title-label {
@@ -11,16 +11,16 @@
     -fx-padding: 10px 0 20px 20em;
 }
 
-/* Top Navigation Bar */
-.h-box#topNav { /* If you add an fx:id="topNav" to your top HBox in FXML or set ID in code */
-    -fx-background-color: #336699; /* Dark blue */
+
+.h-box#topNav {
+    -fx-background-color: #336699;
     -fx-padding: 10px;
     -fx-spacing: 10px;
     -fx-alignment: CENTER_LEFT;
 }
 
 .button {
-    -fx-background-color: #5127db; /* Green */
+    -fx-background-color: #5127db;
     -fx-text-fill: white;
     -fx-font-size: 14px;
     -fx-padding: 8px 15px;
@@ -31,43 +31,43 @@
 }
 
 .button:hover {
-    -fx-background-color: #4223ad; /* Darker green on hover */
+    -fx-background-color: #4223ad;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 7, 0, 0, 1);
 }
 
 .button:pressed {
-    -fx-background-color: #4223ad; /* Even darker green on press */
+    -fx-background-color: #4223ad;
 }
 
-/* Side Navigation */
+
 .scroll-pane {
-    -fx-background-color: transparent; /* Make scroll pane background transparent */
+    -fx-background-color: transparent;
 }
 
 .scroll-pane > .viewport {
-    -fx-background-color: transparent; /* Make viewport background transparent */
+    -fx-background-color: transparent;
 }
 
-.v-box#sideNavContent { /* Assuming sideNavContent VBox has an ID */
-    -fx-background-color: #0f2c70; /* Lighter gray for side nav background */
+.v-box#sideNavContent {
+    -fx-background-color: #0f2c70;
     -fx-padding: 10px;
     -fx-spacing: 10px;
     -fx-border-color: #cccccc;
-    -fx-border-width: 0 1px 0 0; /* Right border */
+    -fx-border-width: 0 1px 0 0;
 }
 
-.location-preview { /* Style for the VBox containing image and label for each location */
+.location-preview {
     -fx-background-color: #5127db;
     -fx-padding: 10px;
     -fx-border-radius: 8px;
     -fx-background-radius: 8px;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1);
     -fx-cursor: hand;
-    -fx-alignment: CENTER; /* Ensure content is centered within the VBox */
+    -fx-alignment: CENTER;
 }
 
 .location-preview:hover {
-    -fx-background-color: #4223ad; /* Slightly darker on hover */
+    -fx-background-color: #4223ad;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 7, 0, 0, 1);
 }
 
@@ -85,46 +85,46 @@
     -fx-padding: 5px 0 0 0;
 }
 
-/* Info Display (Right Panel / Center of BorderPane after map) */
-.v-box#infoDisplay { /* Assuming infoDisplay VBox has an ID */
-    -fx-background-color: #ffffff; /* White background */
+
+.v-box#infoDisplay {
+    -fx-background-color: #ffffff;
     -fx-padding: 20px;
     -fx-spacing: 15px;
-    -fx-alignment: TOP_CENTER; /* Align content to the top center */
+    -fx-alignment: TOP_CENTER;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);
     -fx-border-radius: 10px;
     -fx-background-radius: 10px;
-    -fx-margin: 10px; /* Add some margin around the panel */
+    -fx-margin: 10px;
 }
 
-.info-display-label { /* General label styling within info display */
+.info-display-label {
     -fx-font-size: 14px;
     -fx-text-fill: #ffffff;
     -fx-line-spacing: 1.2;
 }
 
-.info-display-label.name-label { /* Specific style for the location name label */
+.info-display-label.name-label {
     -fx-font-size: 24px;
     -fx-font-weight: bold;
     -fx-text-fill: #ffffff;
     -fx-padding: 0 0 10px 0;
 }
 
-.info-display-label.description-label { /* Specific style for description label */
+.info-display-label.description-label {
     -fx-font-size: 14px;
     -fx-text-fill: #ffffff;
     -fx-padding: 0 0 15px 0;
 }
 
-.info-display-image-view { /* Image view within info display */
+.info-display-image-view {
     -fx-border-color: #cccccc;
     -fx-border-width: 1px;
     -fx-padding: 2px;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1);
 }
 
-/* Media Controls (Audio & Video) */
-.v-box#audioControlsContainer, .v-box#currentVideoControls { /* Assuming these VBoxes have IDs */
+
+.v-box#audioControlsContainer, .v-box#currentVideoControls {
     -fx-padding: 10px;
     -fx-spacing: 5px;
     -fx-alignment: CENTER;
@@ -142,15 +142,15 @@
 }
 
 .slider .thumb {
-    -fx-background-color: #336699; /* Dark blue thumb */
+    -fx-background-color: #336699;
     -fx-background-radius: 10px;
     -fx-pref-width: 16px;
     -fx-pref-height: 16px;
 }
 
-/* Fullscreen Overlays (Video and Image) */
+
 #fullscreenVideoOverlay, #fullscreenImageOverlay {
-    -fx-background-color: rgba(0, 0, 0, 0.9); /* Darker overlay for true fullscreen feel */
+    -fx-background-color: rgba(0, 0, 0, 0.9);
     -fx-alignment: CENTER;
     -fx-padding: 20px;
 }
@@ -159,8 +159,8 @@
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 20, 0, 0, 0);
 }
 
-/* Quiz Styles */
-.v-box#quizContainer { /* Assuming quizContainer VBox has an ID */
+
+.v-box#quizContainer {
     -fx-padding: 15px;
     -fx-spacing: 10px;
     -fx-alignment: TOP_LEFT;
@@ -171,15 +171,15 @@
     -fx-border-width: 1px;
 }
 
-.question-label { /* Style for the question text */
+.question-label {
     -fx-font-size: 16px;
     -fx-font-weight: bold;
     -fx-text-fill: #ffffff;
     -fx-padding: 0 0 10px 0;
 }
 
-.options-box .button { /* Options buttons within the quiz */
-    -fx-background-color: #e38a1e; /* Blue for options */
+.options-box .button {
+    -fx-background-color: #e38a1e;
     -fx-text-fill: white;
     -fx-font-size: 14px;
     -fx-padding: 10px 15px;
@@ -187,8 +187,8 @@
     -fx-background-radius: 5px;
     -fx-cursor: hand;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 1);
-    -fx-pref-width: 250px; /* Fixed width for option buttons */
-    -fx-alignment: CENTER_LEFT; /* Align text to left */
+    -fx-pref-width: 250px;
+    -fx-alignment: CENTER_LEFT;
 }
 
 .options-box .button:hover {
@@ -214,9 +214,9 @@
     -fx-padding: 15px 0 10px 0;
 }
 
-/* Buttons specifically for quiz actions (Next, Try Again, Exit) */
+
 .quiz-action-button {
-    -fx-background-color: #007bff; /* Dodger blue for general quiz actions */
+    -fx-background-color: #007bff;
     -fx-text-fill: white;
     -fx-font-size: 14px;
     -fx-padding: 10px 20px;
@@ -224,7 +224,7 @@
     -fx-background-radius: 5px;
     -fx-cursor: hand;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 1);
-    -fx-pref-width: 200px; /* Consistent width */
+    -fx-pref-width: 200px;
     -fx-alignment: CENTER;
 }
 

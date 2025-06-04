@@ -114,18 +114,18 @@ public class QuizManager {
         feedbackLabel.setText("");
         optionsBox.getChildren().clear();
         nextButton.setVisible(false);
-        optionsBox.getStyleClass().add("options-box"); // Apply CSS class to optionsBox
+        optionsBox.getStyleClass().add("options-box");
 
         if (currentQuestionIndex >= 0 && currentQuestionIndex < currentQuestions.size()) {
             Question question = currentQuestions.get(currentQuestionIndex);
             Label questionLabel = new Label(question.getQuestion());
-            questionLabel.getStyleClass().add("question-label"); // Apply CSS class
+            questionLabel.getStyleClass().add("question-label");
             questionLabel.setWrapText(true);
 
             for (String option : question.getOptions()) {
                 Button optionButton = new Button(option);
                 optionButton.setMaxWidth(Double.MAX_VALUE);
-                optionButton.getStyleClass().add("options-box-button"); // Apply CSS class
+                optionButton.getStyleClass().add("options-box-button");
                 optionButton.setOnAction(event -> {
                     String selectedAnswer = optionButton.getText();
                     userAnswers.put(question.getQuestion(), selectedAnswer);
@@ -136,7 +136,7 @@ public class QuizManager {
                         feedbackLabel.setText("Incorrect. Correct answer: " + question.getAnswer());
                         feedbackLabel.setTextFill(Color.RED);
                     }
-                    feedbackLabel.getStyleClass().add("feedback-label"); // Apply CSS class
+                    feedbackLabel.getStyleClass().add("feedback-label");
                     optionsBox.getChildren().forEach(node -> node.setDisable(true)); // Disable all option buttons
                     nextButton.setText(currentQuestionIndex < currentQuestions.size() - 1 ? "Next Question" : "Submit Quiz");
                     nextButton.setVisible(true);
@@ -156,29 +156,29 @@ public class QuizManager {
             Label resultLabel = new Label(q.getQuestion() + "\n - Your answer: " + (userAnswer != null ? userAnswer : "Not answered") +
                     (userAnswer != null && userAnswer.equals(q.getAnswer()) ? " (Correct)" : " (Incorrect, Correct answer: " + q.getAnswer() + ")"));
             resultLabel.setWrapText(true);
-            resultLabel.getStyleClass().add("results-label"); // Apply general label style for results
+            resultLabel.getStyleClass().add("results-label");
             quizContainer.getChildren().add(resultLabel);
             if (userAnswer != null && userAnswer.equals(q.getAnswer())) {
                 score++;
             }
         }
         Label finalScoreLabel = new Label("Your final score: " + score + " out of " + currentQuestions.size());
-        finalScoreLabel.getStyleClass().add("final-score-label"); // Apply CSS class
+        finalScoreLabel.getStyleClass().add("final-score-label");
 
         Button tryAgainButton = new Button("Try Again");
         tryAgainButton.setMaxWidth(Double.MAX_VALUE);
-        tryAgainButton.getStyleClass().add("quiz-action-button"); // Apply CSS class
+        tryAgainButton.getStyleClass().add("quiz-action-button");
         tryAgainButton.setOnAction(event -> startQuiz(currentQuizLocation));
 
         Button exitButton = new Button("Exit Quiz");
         exitButton.setMaxWidth(Double.MAX_VALUE);
-        exitButton.getStyleClass().add("quiz-action-button"); // Apply CSS class
+        exitButton.getStyleClass().add("quiz-action-button");
         exitButton.setOnAction(event -> clearQuizUI());
 
         quizContainer.getChildren().addAll(finalScoreLabel, tryAgainButton, exitButton);
     }
 
-    // Call this method from MapController when changing location or clearing info
+    // we Call this method from MapController when changing location or clearing info
     public void clearQuizUI() {
         quizContainer.getChildren().clear();
         if (infoDisplay.getChildren().contains(quizContainer)) {
