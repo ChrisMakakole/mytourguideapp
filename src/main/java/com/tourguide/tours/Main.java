@@ -38,6 +38,8 @@ public class Main extends Application {
             topNav.setAlignment(Pos.CENTER_LEFT);
             topNav.setId("topNav"); // Set ID for CSS
             Button homeButton = new Button("Home");
+            Label Title = new Label("Lesotho Tour Guide");
+            Title.getStyleClass().add("Title-label");
             homeButton.getStyleClass().add("button"); // Apply general button style
 
             homeButton.setOnAction(event -> {
@@ -51,8 +53,7 @@ public class Main extends Application {
                 // For example, you might want to show the map without specific info
                 // mapController.resetMapView(); // You would need to add this method to MapController
             });
-            topNav
-                    .getChildren().addAll(homeButton);
+            topNav.getChildren().addAll(homeButton,Title);
             rootBorderPane.setTop(topNav);
 
             // Side Navigation

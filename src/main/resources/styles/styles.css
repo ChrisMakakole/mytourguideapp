@@ -4,6 +4,13 @@
     -fx-background-color: linear-gradient(to bottom right,#697cf5, #dce2fc ); /* Light gray background */
 }
 
+.Title-label {
+    -fx-font-weight: bold;
+    -fx-font-size: 20px;
+    -fx-text-fill: #ffffff;
+    -fx-padding: 10px 0 20px 20em;
+}
+
 /* Top Navigation Bar */
 .h-box#topNav { /* If you add an fx:id="topNav" to your top HBox in FXML or set ID in code */
     -fx-background-color: #336699; /* Dark blue */
@@ -13,7 +20,7 @@
 }
 
 .button {
-    -fx-background-color: #4925c2; /* Green */
+    -fx-background-color: #5127db; /* Green */
     -fx-text-fill: white;
     -fx-font-size: 14px;
     -fx-padding: 8px 15px;
@@ -24,7 +31,7 @@
 }
 
 .button:hover {
-    -fx-background-color: #542cdb; /* Darker green on hover */
+    -fx-background-color: #4223ad; /* Darker green on hover */
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 7, 0, 0, 1);
 }
 
@@ -172,7 +179,7 @@
 }
 
 .options-box .button { /* Options buttons within the quiz */
-    -fx-background-color: #5884b0; /* Blue for options */
+    -fx-background-color: #e38a1e; /* Blue for options */
     -fx-text-fill: white;
     -fx-font-size: 14px;
     -fx-padding: 10px 15px;
@@ -185,7 +192,7 @@
 }
 
 .options-box .button:hover {
-    -fx-background-color: #5588bb;
+    -fx-background-color: #b86d12;
 }
 
 .feedback-label {
